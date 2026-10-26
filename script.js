@@ -218,3 +218,62 @@ if (playRandomSoundBtn) {
         });
     });
 }
+
+// asik 5 | Task 1: Dynamic greeting using switch
+
+const timeGreeting = document.getElementById("timeGreeting");
+
+function showGreeting() {
+    if (!timeGreeting) return;
+
+    const hour = new Date().getHours();
+    let greeting;
+
+    switch (true) {
+        case hour < 12:
+            greeting = "Good morning, Stalker!";
+            break;
+        case hour < 18:
+            greeting = "Good afternoon, Stalker!";
+            break;
+        default:
+            greeting = "Good evening, Stalker!";
+    }
+
+    timeGreeting.textContent = greeting;
+}
+
+showGreeting();
+
+// asik 5 | Task 2: Keyboard navigation
+
+document.addEventListener("DOMContentLoaded", () => {
+    const menuLinks = document.querySelectorAll(
+        ".navbar-nav .nav-link"
+    );
+
+    menuLinks.forEach((link, index) => {
+        link.addEventListener("keydown", (event) => {
+            let nextIndex = index;
+
+            switch (event.key) {
+                case "ArrowDown":
+                case "ArrowRight":
+                    nextIndex = (index + 1) % menuLinks.length;
+                    break;
+
+                case "ArrowUp":
+                case "ArrowLeft":
+                    nextIndex =
+                        (index - 1 + menuLinks.length) % menuLinks.length;
+                    break;
+
+                default:
+                    return;
+            }
+
+            event.preventDefault();
+            menuLinks[nextIndex].focus();
+        });
+    });
+});
